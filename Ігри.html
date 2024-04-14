@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Main Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header {
+            background-color: #ff7f00;
+            color: #000000;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffea00;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #ffffff;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        footer {
+            background-color: #ffea00;
+            color: #000000;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .game {
+            display: none;
+        }
+        .game.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        
+        <h1>🎰 Ігри 🎲</h1>
+    </header>
+    <nav>
+        <a href="#diceGame">Кидок кубика 🎲</a>
+        <a href="#numberGame">Вгадай число 🔢?</a>
+        <a href="#slotsGame">Ігровий автомат 🎰</a>
+        <a href="#coinGame">Кидок монетки 🪙</a>
+    </nav>
+  
+    </nav>
+    <div class="main-content">
+
+        <div class="game active" id="diceGame">
+            <h3>Кидок кубика</h3>
+            <button onclick="rollDice()">Кинути кубик</button>
+            <p id="diceResult"></p>
+        </div>
+
+
+        <div class="game" id="numberGame">
+            <h3>Вгадай число</h3>
+            <p>Комп'ютер "загадав" число від 1 до 100.</p>
+            <input type="number" id="guessInput" placeholder="Ваша відповідь">
+            <button onclick="checkGuess()">Спробувати вгадати</button>
+            <p id="guessResult"></p>
+        </div>
+
+
+        <div class="game" id="slotsGame">
+            <h3>Ігровий автомат</h3>
+            <input type="number" id="betAmount" placeholder="Введіть суму для ставки">
+            <button onclick="spinSlots()">Почати гру</button>
+            <div id="slotResult">[ - ] [ - ] [ - ]</div>
+            <p id="slotMessage"></p>
+            <p>Баланс: $<span id="slotsBalance">1000</span></p>
+        </div>
+
+
+        <div class="game" id="coinGame">
+            <h3>Кидок монетки</h3>
+            <button onclick="flipCoin()">Кинути монетку</button>
+            <p id="coinResult"></p>
+        </div>
+    </div>
+    <footer>
+        &copy; 2023 Casino. All rights reserved.
+    </footer>
+    <script>
+        var games = document.querySelectorAll('.game');
+        var links = document.querySelectorAll('nav a');
+        var playerBalance = 1000; // Початковий баланс гравця
+        var slotsBalance = 1000; // Баланс для гри Ігровий автомат
+
+        links.forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var targetGameId = link.getAttribute('href').substring(1);
+                games.forEach(function (game) {
+                    game.classList.remove('active');
+                });
+                document.getElementById(targetGameId).classList.add('active');
+            });
+        });
+
+        function updateBalance() {
+            document.getElementById('playerBalance').textContent = playerBalance;
+            document.getElementById('slotsBalance').textContent = slotsBalance;
+        }
+
+        // JavaScript для гри "Кидок кубика"
+        function rollDice() {
+            var result = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('diceResult').innerText = 'Ви кинули: ' + result;
+        }
+
+        // JavaScript для гри "Вгадай число"
+        var secretNumber = Math.floor(Math.random() * 100) + 1;
+        function checkGuess() {
+            var guess = document.getElementById('guessInput').value;
+            if (guess == secretNumber) {
+                document.getElementById('guessResult').innerText = 'Вітаємо! Ви вгадали!';
+            } else if (guess < secretNumber) {
+                document.getElementById('guessResult').innerText = 'Загадане число більше.';
+            } else {
+                document.getElementById('guessResult').innerText = 'Загадане число менше.';
+            }
+        }
+
+        // JavaScript для гри "Ігровий автомат"
+        function spinSlots() {
+            var betAmount = parseInt(document.getElementById('betAmount').value);
+            if (isNaN(betAmount) || betAmount <= 0) {
+                document.getElementById('slotMessage').innerText = 'Будь ласка, введіть коректну суму для ставки.';
+            } else if (betAmount > slotsBalance) {
+                document.getElementById('slotMessage').innerText = 'У вас недостатньо грошей для такої ставки.';
+            } else {
+                slotsBalance -= betAmount;
+                document.getElementById('slotsBalance').textContent = slotsBalance;
+                
+                var symbols = ['🍎', '🍊', '🍇', '🍋', '🍒'];
+                var slot1 = symbols[Math.floor(Math.random() * symbols.length)];
+                var slot2 = symbols[Math.floor(Math.random() * symbols.length)];
+                var slot3 = symbols[Math.floor(Math.random() * symbols.length)];
+                document.getElementById('slotResult').innerText = '[' + slot1 + '] [' + slot2 + '] [' + slot3 + ']';
+
+                if (slot1 == slot2 && slot2 == slot3) {
+                    var winnings = betAmount * 2;
+                    slotsBalance += winnings;
+                    document.getElementById('slotsBalance').textContent = slotsBalance;
+                    document.getElementById('slotMessage').innerText = 'Ви виграли ' + winnings + '!';
+                } else {
+                    document.getElementById('slotMessage').innerText = 'Спробуйте ще раз.';
+                }
+            }
+        }
+
+        // JavaScript для гри "Кидок монетки"
+        function flipCoin() {
+            var result = Math.random() < 0.5 ? 'Орел' : 'Решка';
+            document.getElementById('coinResult').innerText = 'Ви кинули: ' + result;
+        }
+        
+        // Оновити баланс після завантаження сторінки
+        window.addEventListener('load', updateBalance);
+    </script>
+</body>
+</html>

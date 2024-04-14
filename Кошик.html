@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Main Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header {
+            background-color: #ff7f00;
+            color: #000000;
+            padding: 15px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffea00;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #ffffff;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .basket {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .bet-item {
+            list-style-type: none;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .bet-item:last-child {
+            border-bottom: none;
+        }
+        .active-bets,
+        .completed-bets {
+            margin-top: 20px;
+        }
+        .completed-bets h3,
+        .active-bets h3 {
+            margin-bottom: 10px;
+        }
+        footer {
+            background-color: #ffea00;
+            color: #000000;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="margin: 0;">Кошик 🧺</h1>
+    </header>
+    <nav>
+        <a href="Головна сторінка.html">Головна 🏠</a>
+        <a href="Ігри.html">🎰 Ігри 🎲</a>
+        <a href="Ставки.html" >Ставки 💵</a>
+        <a href="Акції.html">📈 Акції 📉</a>
+        <a href="Гаманець.html">💵 Гаманець 💰</a>
+        <a href="Кошик.html">Кошик 🧺</a>
+        <a href="Контакти.html">📞 Контакти 📨</a>
+        <a href="Про нас.html">Про нас 🧐</a>  
+    </nav>
+    
+    <div class="main-content">
+        <h2>Ваш кошик</h2>
+        <div class="basket">
+            <h3>Активні ставки</h3>
+            <ul id="activeBets" class="active-bets">
+                <!-- Тут буде виводитись історія активних ставок -->
+            </ul>
+            <h3>Завершені ставки</h3>
+            <ul id="completedBets" class="completed-bets">
+                <!-- Тут буде виводитись історія завершених ставок -->
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2023 Casino. All rights reserved.
+    </footer>
+
+    <script>
+        // Додаємо кілька випадкових активних та завершених ставок для тестування
+        var activeBets = [
+            { betAmount: 30, status: 'active', sport: 'Футбол' },
+            { betAmount: 25, status: 'active', sport: 'Теніс' },
+            { betAmount: 18, status: 'active', sport: 'Баскетбол' }
+        ];
+
+        var completedBets = [
+            { betAmount: 15, result: 'win', sport: 'Волейбол' },
+            { betAmount: 22, result: 'loss', sport: 'Хокей' },
+            { betAmount: 10, result: 'win', sport: 'Бейсбол' }
+        ];
+
+        function displayActiveBets() {
+            var activeBetsElement = document.getElementById('activeBets');
+            activeBetsElement.innerHTML = '';
+
+            activeBets.forEach(function (bet) {
+                var listItem = document.createElement('li');
+                listItem.classList.add('bet-item');
+                listItem.innerHTML = `
+                    <span>Ставка: ${bet.betAmount}</span>
+                    <span>Статус: ${bet.status === 'active' ? 'Активна' : 'Завершена'}</span>
+                    <span>Спорт: ${bet.sport}</span>
+                `;
+                activeBetsElement.appendChild(listItem);
+            });
+        }
+
+        function displayCompletedBets() {
+            var completedBetsElement = document.getElementById('completedBets');
+            completedBetsElement.innerHTML = '';
+
+            completedBets.forEach(function (bet) {
+                var listItem = document.createElement('li');
+                listItem.classList.add('bet-item');
+                listItem.innerHTML = `
+                    <span>Ставка: ${bet.betAmount}</span>
+                    <span>Результат: ${bet.result === 'win' ? 'Виграш' : 'Програш'}</span>
+                    <span>Спорт: ${bet.sport}</span>
+                `;
+                completedBetsElement.appendChild(listItem);
+            });
+        }
+
+        // Відображаємо історію активних та завершених ставок при завантаженні сторінки
+        displayActiveBets();
+        displayCompletedBets();
+    </script>
+</body>
+</html>

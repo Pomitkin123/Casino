@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Main Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #ff7f00;
+            color: #000000;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffea00;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #ffffff;
+        }
+        .main-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        footer {
+            background-color: #ffea00;
+            color: #000000;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <!-- Додано посилання на Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>📈 Курс долара 📉</h1>
+    </header>
+    <nav>
+        <a href="Головна сторінка.html">Головна 🏠</a>
+        <a href="Ігри.html">🎰 Ігри 🎲</a>
+        <a href="Ставки.html" >Ставки 💵</a>
+        <a href="Акції.html">📈 Акції 📉</a>
+        <a href="Гаманець.html">💵 Гаманець 💰</a>
+        <a href="Кошик.html">Кошик 🧺</a>
+        <a href="Контакти.html">📞 Контакти 📨</a>
+        <a href="Про нас.html">Про нас 🧐</a> 
+    </nav>
+    <div class="main-content">
+        <p>Check out the latest USD to UAH exchange rate.</p>
+        
+        <!-- Додано блок для відображення графіка -->
+        <canvas id="stockChart" width="600" height="300"></canvas>
+    </div>
+    <footer>
+        &copy; 2023 Casino. All rights reserved.
+    </footer>
+    <!-- Додано скрипт для ініціалізації графіка -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById("stockChart").getContext("2d");
+
+            var stockData = {
+                labels: ["January", "February", "March", "April", "May", "June"],
+                datasets: [{
+                    label: "USD to UAH Exchange Rate",
+                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderWidth: 2,
+                    data: [26, 25.8, 25.5, 26.2, 25.9, 26.5],
+                }],
+            };
+
+            var stockChart = new Chart(ctx, {
+                type: "line",
+                data: stockData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: "linear",
+                            position: "bottom",
+                        },
+                        y: {
+                            beginAtZero: false,
+                        },
+                    },
+                    elements: {
+                        line: {
+                            tension: 0,
+                        },
+                    },
+                    plugins: {
+                        annotation: {
+                            annotations: [{
+                                type: 'arrow',
+                                mode: 'vertical',
+                                scaleID: 'x',
+                                value: stockData.labels.length - 1,
+                                borderColor: 'green', // Змінено колір стрілки
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Upward Trend',
+                                    enabled: true,
+                                    position: 'top',
+                                },
+                            }]
+                        }
+                    }
+                },
+            });
+        });
+    </script>
+</body>
+</html>

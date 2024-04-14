@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Main Page</title>
+    <style>
+        /* Ваші стилі тут */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        header {
+            background-color: #ff7f00;
+            color: #000000;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffea00;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .main-content h2 {
+            color: #ff7f00;
+        }
+
+        .main-content p {
+            color: #444444;
+            text-align: left;
+        }
+
+        .event-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .event {
+            width: 100%;
+            background-color: #f2f2f2;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        .event img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .event:hover {
+            background-color: #e0e0e0;
+        }
+
+        #betAmount {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        #modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+        }
+
+        #closeModal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        #closeModal:hover,
+        #closeModal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1 style="font-size: 36px;">Ставки 💵</h1>
+    </header>
+    <nav>
+        <a href="Головна сторінка.html">Головна 🏠</a>
+        <a href="Ігри.html">🎰 Ігри 🎲</a>
+        <a href="Ставки.html">Ставки 💵</a>
+        <a href="Акції.html">📈 Акції 📉</a>
+        <a href="Гаманець.html">💵 Гаманець 💰</a>
+        <a href="Кошик.html">Кошик 🧺</a>
+        <a href="Контакти.html">📞 Контакти 📨</a>
+        <a href="Про нас.html">Про нас 🧐</a>
+    </nav>
+    <div class="main-content">
+        <h2>Активні ставки</h2>
+        <p>Оберіть ваші ставки та введіть суму:</p>
+
+        <!-- Контейнер для готових подій -->
+        <div class="event-container">
+            <div class="event" onclick="selectEvent(1.5)">
+                <span>Футбол: Манчестер Юнайтед - Ліверпуль (Коєфіцієнт: 1.5)</span>
+            </div>
+            <div class="event" onclick="selectEvent(2.0)">
+                <span>Теніс: Рафаель Надаль - Новак Джокович (Коєфіцієнт: 2.0)</span>
+            </div>
+            <div class="event" onclick="selectEvent(3.5)">
+                <span>Бокс: Тайсон Ф'юрі - Деонтей Вайлдер (Коєфіцієнт: 3.5)</span>
+            </div>
+            <div class="event" onclick="selectEvent(1.8)">
+                <span>Баскетбол: Лейкерс - Селтікс (Коєфіцієнт: 1.8)</span>
+            </div>
+            <div class="event" onclick="selectEvent(2.5)">
+                <span>Гольф: Тайгер Вудс - Рорі Макілрой (Коєфіцієнт: 2.5)</span>
+            </div>
+        </div>
+
+        <!-- Поле введення суми ставки -->
+        <input type="number" id="betAmount" placeholder="Введіть суму ставки" required>
+
+        <!-- Кнопка для зроблення ставки -->
+        <button type="button" onclick="placeBet()">Зробити ставку</button>
+
+        <!-- Вивід результату ставки в модальному вікні -->
+        <div id="modal">
+            <div id="modal-content">
+                <span id="closeModal" onclick="closeModal()">&times;</span>
+                <p id="betResult"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript код для обробки ставок та відображення результату
+        var selectedEvent;
+
+        function selectEvent(coefficient) {
+            selectedEvent = coefficient;
+            document.querySelectorAll('.event').forEach(function (event) {
+                event.style.backgroundColor = ''; // Скидання кольору усім подіям
+            });
+            event.target.style.backgroundColor = '#f2f2f2'; // Виділення обраної події
+        }
+
+        function placeBet() {
+            var betAmount = document.getElementById('betAmount').value;
+
+            // Перевірка, чи введені коректні дані
+            if (isNaN(betAmount) || betAmount <= 0 || !selectedEvent) {
+                alert('Введіть коректну суму ставки та оберіть подію!');
+                return;
+            }
+
+            // Ваша логіка для розрахунку результату ставки
+            var result = calculateBetResult(betAmount, selectedEvent);
+
+            // Вивід результату в модальному вікні
+            var modal = document.getElementById('modal');
+            var betResultElement = document.getElementById('betResult');
+            betResultElement.innerHTML = 'Ставка прийнята! Результат: ' + result;
+            modal.style.display = 'block';
+        }
+
+        function calculateBetResult(betAmount, selectedEvent) {
+            // Ваша логіка для розрахунку результату ставки
+            // Наприклад, можна використовувати рандом або власний алгоритм
+            var randomResult = Math.random() < 0.5 ? 'Виграш' : 'Програш';
+            return randomResult + ' ' + betAmount + ' грн за подію з коєфіцієнтом ' + selectedEvent;
+        }
+
+        // Закриття модального вікна
+        function closeModal() {
+            var modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

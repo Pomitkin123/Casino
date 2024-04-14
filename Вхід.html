@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Casino Main Page</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, hsl(211, 100%, 50%), #ffea00);
+            margin: 0;
+        }
+
+        .login-box {
+            width: 350px;
+            height: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-box input,
+        .login-box button {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .login-box input::placeholder {
+            color: #ccc;
+        }
+
+        .login-box button {
+            background-color: hsl(211, 100%, 50%);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-box button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="login-box">
+<h2>Casino Login</h2>
+<input id="username" placeholder="Username" type="text"/>
+<input id="password" placeholder="Password" type="password"/>
+<button onclick="login()">Login</button>
+</div>
+<script>
+    function login() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+        // Retrieve registered user data from local storage
+        var registeredUsername = localStorage.getItem("registeredUsername");
+        var registeredPassword = localStorage.getItem("registeredPassword");
+        
+        // Check if entered data matches registered data
+        if(username === registeredUsername && password === registeredPassword) {
+            // Redirect to the main page after successful login
+            window.location.href = "Головна сторінка.html";
+        } else {
+            alert("Неправильне ім'я користувача або пароль. Будь ласка, спробуйте знову.");
+        }
+    };
+    </script></body>
+</html>

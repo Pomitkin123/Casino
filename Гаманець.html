@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Main Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header {
+            background-color: #ff7f00;
+            color: #000000;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffea00;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #ffffff;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        footer {
+            background-color: #ffea00;
+            color: #000000;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .wallet-form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .wallet-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .wallet-form input,
+        .wallet-form select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        .wallet-form button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .wallet-form button:hover {
+            background-color: #45a049;
+        }
+        .balance-info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💵 Гаманець 💰</h1>
+    </header>
+    <nav>
+        <a href="Головна сторінка.html">Головна 🏠</a>
+        <a href="Ігри.html">🎰 Ігри 🎲</a>
+        <a href="Ставки.html" >Ставки 💵</a>
+        <a href="Акції.html">📈 Акції 📉</a>
+        <a href="Гаманець.html">💵 Гаманець 💰</a>
+        <a href="Кошик.html">Кошик 🧺</a>
+        <a href="Контакти.html">📞 Контакти 📨</a>
+        <a href="Про нас.html">Про нас 🧐</a> 
+    </nav>
+    
+    <div class="main-content">
+        <h2>Віртуальний гаманець</h2>
+        <div class="wallet-form">
+            <form id="walletForm">
+                <label for="username">Ім'я користувача:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="balance">Баланс:</label>
+                <input type="number" id="balance" name="balance" required>
+
+                <label for="topUpMethod">Спосіб поповнення:</label>
+                <select id="topUpMethod" name="topUpMethod">
+                    <option value="creditCard">Кредитна карта</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bitcoin">Bitcoin</option>
+                    <!-- Додайте інші способи поповнення за потреби -->
+                </select>
+
+                <button type="button" onclick="saveWallet()">Зберегти гаманець</button>
+            </form>
+            <div class="balance-info" id="balanceInfo"></div>
+            <button onclick="addFunds()">Поповнити рахунок</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2023 Casino. All rights reserved.
+    </footer>
+
+    <script>
+        function saveWallet() {
+            var username = document.getElementById('username').value;
+            var balance = parseFloat(document.getElementById('balance').value);
+            var topUpMethod = document.getElementById('topUpMethod').value;
+
+            // Тут ви можете використовувати дані гаманця (username, balance, topUpMethod) за своїми потребами.
+            document.getElementById('balanceInfo').innerHTML = 'Ім\'я користувача: ' + username + '<br>Баланс: ' + balance.toFixed(2) + '<br>Спосіб поповнення: ' + topUpMethod;
+        }
+
+        function addFunds() {
+            var additionalFunds = parseFloat(prompt('Введіть суму для поповнення рахунку:', '0'));
+            var currentBalance = parseFloat(document.getElementById('balance').value);
+
+            if (!isNaN(additionalFunds) && additionalFunds > 0) {
+                var newBalance = currentBalance + additionalFunds;
+                document.getElementById('balance').value = newBalance.toFixed(2);
+                document.getElementById('balanceInfo').innerHTML = 'Баланс: ' + newBalance.toFixed(2);
+            } else {
+                alert('Введено некоректну суму для поповнення рахунку.');
+            }
+        }
+    </script>
+</body>
+</html>
